@@ -1,6 +1,8 @@
 name: schema_builder
-description: "A new Flutter package project."
-version: 0.0.1
+description: "A Flutter JSON Schema Generator"
+version: 1.0.0
+homepage: https://github.com/gabrielzeved/schema_builder
+repository: https://github.com/gabrielzeved/schema_builder
 
 environment:
   sdk: ^3.6.1
