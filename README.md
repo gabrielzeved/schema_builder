@@ -165,7 +165,7 @@ An abstract class for defining custom schema generation logic. Implement the `sc
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/your-repo/your-library-name).
+Contributions are welcome! Please open an issue or submit a pull request on [GitHub](https://github.com/gabrielzeved/schema_builder).
 
 ---
 
