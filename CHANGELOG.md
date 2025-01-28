@@ -1,3 +1,9 @@
+## 0.1.1
+
+  - Fix improve Pub.dev score
+
+  - Update pubspec and CHANGELOG
+
 ## 0.1.0
 
   - Initial release of the library.
