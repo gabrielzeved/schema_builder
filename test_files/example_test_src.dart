@@ -1,4 +1,4 @@
-import 'package:schema_builder/json_schema.dart';
+import 'package:schema_builder/src/json_schema.dart';
 import 'package:source_gen_test/annotations.dart';
 
 @ShouldGenerate(r'''

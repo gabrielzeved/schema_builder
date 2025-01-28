@@ -2,8 +2,8 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/visitor.dart';
-import 'package:schema_builder/annotation_helper.dart';
-import 'package:schema_builder/json_schema.dart';
+import 'package:schema_builder/src/annotation_helper.dart';
+import 'package:schema_builder/src/json_schema.dart';
 
 final Map<String, String> jsonTypes = {
   "String": "string",
@@ -40,14 +40,15 @@ class SchemaVisitor extends SimpleElementVisitor<void> {
     bool isNested = AnnotationHelper.object<JsonSchema>(type.element!) != null;
 
     if (isNested) {
-      String extendClass = type.getDisplayString();
+      String extendClass = type.getDisplayString(withNullability: false);
       return ExtendedSchemaBuffer(clazz: extendClass);
     }
 
     DartObject? converter = schemaProperties?.getField("converter");
 
     if (converter != null && !converter.isNull) {
-      String converterName = converter.type!.getDisplayString();
+      String converterName =
+          converter.type!.getDisplayString(withNullability: false);
       return ConverterSchemaBuffer(converter: converterName);
     }
 
@@ -70,7 +71,8 @@ class SchemaVisitor extends SimpleElementVisitor<void> {
 
   JsonSchemaDefinition _parsePrimitive(DartType type) {
     JsonSchemaDefinition buffer = JsonSchemaDefinition();
-    String jsonType = jsonTypes[type.getDisplayString()] ?? "string";
+    String jsonType =
+        jsonTypes[type.getDisplayString(withNullability: false)] ?? "string";
     buffer.type = jsonType;
     return buffer;
   }
