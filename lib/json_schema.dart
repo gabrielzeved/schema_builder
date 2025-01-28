@@ -73,10 +73,12 @@ class ExtendedSchemaBuffer extends JsonSchemaBuffer {
 class JsonSchema {
   final String? title;
   final String? description;
+  final SchemaConverter? converter;
 
   const JsonSchema({
     this.title,
     this.description,
+    this.converter,
   });
 }
 

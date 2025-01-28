@@ -24,11 +24,25 @@ class SchemaBuilder extends GeneratorForAnnotation<JsonSchema> {
       );
     }
 
+    //TODO: REFACTOR IMPLEMENTATION, TRY NO UNIFY WITH THE _parse FUNCTION FROM SCHEMA_VISITOR
+
     SchemaVisitor visitor = SchemaVisitor();
     element.visitChildren(visitor);
 
     JsonSchemaDefinition schemaBuffer = JsonSchemaDefinition();
     schemaBuffer.type = 'object';
+
+    ConstantReader converter = annotation.read('converter');
+
+    if (!converter.isNull) {
+      ConverterSchemaBuffer converteSchemaBuffer = ConverterSchemaBuffer(
+        converter: converter.objectValue.type?.getDisplayString() ?? '',
+      );
+
+      return '''Map<String, dynamic> _\$${element.name}Schema(BuildContext context){
+  return ${converteSchemaBuffer.getStringDefinition()};
+}''';
+    }
 
     ConstantReader title = annotation.read('title');
     ConstantReader description = annotation.read('description');
@@ -46,8 +60,7 @@ class SchemaBuilder extends GeneratorForAnnotation<JsonSchema> {
     }
 
     return '''Map<String, dynamic> _\$${element.name}Schema(BuildContext context){
-    return ${schemaBuffer.getStringDefinition()};
-  }
-    ''';
+  return ${schemaBuffer.getStringDefinition()};
+}''';
   }
 }
