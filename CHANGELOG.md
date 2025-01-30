@@ -1,3 +1,14 @@
+## 0.1.2
+
+Update pubspec and CHANGELOG
+Fix improve Pub.dev score
+Add changelog and update pubspec
+Update pubspec
+Fix link in README
+Add root json_schema support for custom converter
+Improve README
+Add MIT License
+Initial commit
 ## 0.1.1
 
   - Fix improve Pub.dev score
