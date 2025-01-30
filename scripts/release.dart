@@ -149,16 +149,34 @@ void updateChangelog(RegExpMatch versionMatch) {
 
   String commits = commitsResult.stdout.toString().trim();
 
-  // Generate the new changelog entry
+  String formattedCommits =
+      commits.split('\n').map((commit) => '  - $commit').join('\n');
+
   String newChangelogEntry = '''
 ## $version
 
-$commits
+$formattedCommits
 ''';
 
   // Prepend the new entry to the existing changelog
   String updatedChangelogContents = newChangelogEntry + changelogContents;
   changelogFile.writeAsStringSync(updatedChangelogContents);
+
+  ProcessResult addResult = Process.runSync('git', ['add', '.']);
+
+  if (addResult.exitCode != 0) {
+    print('❌ Failed to stage changes: ${addResult.stderr}');
+    exit(1);
+  }
+
+  // Commit changes with a default message
+  ProcessResult commitResult =
+      Process.runSync('git', ['commit', '-m', 'Release v$version']);
+
+  if (commitResult.exitCode != 0) {
+    print('❌ Failed to commit changes: ${commitResult.stderr}');
+    exit(1);
+  }
 
   print('📝 Updated CHANGELOG.md with new release $version');
 }
