@@ -1,6 +1,6 @@
 name: schema_builder
 description: "Generate JSON schemas from Dart classes with ease! Use annotations to define schemas, customize fields, and integrate with APIs."
-version: 0.1.3
+version: 0.1.4
 homepage: https://github.com/gabrielzeved/schema_builder
 repository: https://github.com/gabrielzeved/schema_builder
 

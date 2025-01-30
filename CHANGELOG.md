@@ -1,3 +1,6 @@
+## 0.1.4
+
+  - Auto-commit before release
 ## 0.1.3
 
 Auto-commit before release
