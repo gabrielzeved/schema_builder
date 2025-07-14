@@ -1,3 +1,6 @@
+## 0.2.2
+
+  - 
 ## 0.2.1
 
   - Fix annotation retrieve to consider getter and setter metadata
