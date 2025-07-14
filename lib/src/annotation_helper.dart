@@ -7,9 +7,26 @@ class AnnotationHelper {
 
   static DartObject? object<T>(Element element) {
     try {
-      var annotationValue = element.metadata.firstWhere(
-        (element) {
-          var constant = element.computeConstantValue();
+      List<ElementAnnotation> allAnnotations = [];
+
+      allAnnotations.addAll(element.metadata);
+
+      if (element is FieldElement) {
+        if (element.getter != null) {
+          allAnnotations.addAll(element.getter!.metadata);
+        }
+        if (element.setter != null) {
+          allAnnotations.addAll(element.setter!.metadata);
+        }
+      }
+
+      if (element is PropertyAccessorElement) {
+        allAnnotations.addAll(element.variable.metadata);
+      }
+
+      var annotationValue = allAnnotations.firstWhere(
+        (annotation) {
+          var constant = annotation.computeConstantValue();
 
           if (constant == null || constant.type == null) return false;
 
