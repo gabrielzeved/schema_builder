@@ -1,3 +1,6 @@
+## 0.2.0
+
+  - Add extension to access schema statically and make BuildContext optional
 ## 0.1.4
 
   - Auto-commit before release
