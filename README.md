@@ -97,7 +97,7 @@ class CustomClass {
 Use `build_runner` to generate the JSON schemas:
 
 ```bash
-flutter pub run build_runner build
+dart run build_runner build
 ```
 
 This will generate a `.g.dart` file containing the JSON schema for your annotated classes.

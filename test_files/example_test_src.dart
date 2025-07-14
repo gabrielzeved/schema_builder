@@ -2,16 +2,24 @@ import 'package:schema_builder/src/json_schema.dart';
 import 'package:source_gen_test/annotations.dart';
 
 @ShouldGenerate(r'''
-Map<String, dynamic> _$ShouldGenerateForSimplePrimitiveTypesSchema(
-    BuildContext context) {
+extension $ShouldGenerateForSimplePrimitiveTypesSchema
+    on ShouldGenerateForSimplePrimitiveTypes {
+  static $schema([BuildContext? context]) {
+    return _$ShouldGenerateForSimplePrimitiveTypesSchema(context);
+  }
+}
+
+Map<String, dynamic> _$ShouldGenerateForSimplePrimitiveTypesSchema([
+  BuildContext? context,
+]) {
   return {
     "type": "object",
     "properties": {
       "vString": {"type": "string"},
       "vInteger": {"type": "number"},
       "vDouble": {"type": "number"},
-      "vBoolean": {"type": "boolean"}
-    }
+      "vBoolean": {"type": "boolean"},
+    },
   };
 }
 ''')
@@ -31,15 +39,23 @@ class ShouldGenerateForSimplePrimitiveTypes {
 }
 
 @ShouldGenerate(r'''
-Map<String, dynamic> _$ShouldGenerateWithRootTitleAndDescriptionSchema(
-    BuildContext context) {
+extension $ShouldGenerateWithRootTitleAndDescriptionSchema
+    on ShouldGenerateWithRootTitleAndDescription {
+  static $schema([BuildContext? context]) {
+    return _$ShouldGenerateWithRootTitleAndDescriptionSchema(context);
+  }
+}
+
+Map<String, dynamic> _$ShouldGenerateWithRootTitleAndDescriptionSchema([
+  BuildContext? context,
+]) {
   return {
     "type": "object",
     "title": "Title Default",
     "description": "Description Default",
     "properties": {
-      "vString": {"type": "string"}
-    }
+      "vString": {"type": "string"},
+    },
   };
 }
 ''')
@@ -53,17 +69,25 @@ class ShouldGenerateWithRootTitleAndDescription {
 }
 
 @ShouldGenerate(r'''
-Map<String, dynamic> _$ShouldGenerateWithPropertyTitleAndDescriptionSchema(
-    BuildContext context) {
+extension $ShouldGenerateWithPropertyTitleAndDescriptionSchema
+    on ShouldGenerateWithPropertyTitleAndDescription {
+  static $schema([BuildContext? context]) {
+    return _$ShouldGenerateWithPropertyTitleAndDescriptionSchema(context);
+  }
+}
+
+Map<String, dynamic> _$ShouldGenerateWithPropertyTitleAndDescriptionSchema([
+  BuildContext? context,
+]) {
   return {
     "type": "object",
     "properties": {
       "vString": {
         "type": "string",
         "title": "Title default",
-        "description": "Description default"
-      }
-    }
+        "description": "Description default",
+      },
+    },
   };
 }
 ''')

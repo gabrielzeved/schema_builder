@@ -41,7 +41,13 @@ class SchemaBuilder extends GeneratorForAnnotation<JsonSchema> {
             '',
       );
 
-      return '''Map<String, dynamic> _\$${element.name}Schema(BuildContext context){
+      return '''extension \$${element.name}Schema on ${element.name} {
+  static \$schema([BuildContext? context]) {
+    return _\$${element.name}Schema(context);
+  }
+}
+
+Map<String, dynamic> _\$${element.name}Schema([BuildContext? context]){
   return ${converteSchemaBuffer.getStringDefinition()};
 }''';
     }
@@ -61,7 +67,13 @@ class SchemaBuilder extends GeneratorForAnnotation<JsonSchema> {
       schemaBuffer.properties[entry.key] = entry.value;
     }
 
-    return '''Map<String, dynamic> _\$${element.name}Schema(BuildContext context){
+    return '''extension \$${element.name}Schema on ${element.name} {
+  static \$schema([BuildContext? context]) {
+    return _\$${element.name}Schema(context);
+  }
+}
+  
+Map<String, dynamic> _\$${element.name}Schema([BuildContext? context]){
   return ${schemaBuffer.getStringDefinition()};
 }''';
   }
