@@ -1,30 +1,35 @@
-name: Dart Package Release
 
+name: Flutter Package Release
 on:
   push:
     tags:
       - 'v*' # Triggers the workflow when a tag starting with 'v' is pushed
-
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Dart
-        uses: dart-lang/setup-dart@v1
+        uses: actions/checkout@v4
+      
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          sdk: stable
-
+          flutter-version: stable
+          channel: stable
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
       - name: Validate package
-        run: dart pub get && dart analyze && dart test
-
+        run: |
+          flutter analyze
+          flutter test
+          flutter pub publish --dry-run
+      
       - name: Get version from tag
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-
+      
       - name: Update pubspec.yaml and CHANGELOG.md
         run: |
           dart run tool/update_version.dart patch # Replace 'patch' with the appropriate release type
@@ -33,19 +38,21 @@ jobs:
           git add pubspec.yaml CHANGELOG.md
           git commit -m "Bump version to $VERSION and update CHANGELOG.md"
           git push
-
+      
       - name: Publish to pub.dev
-        run: dart pub publish --dry-run # Remove --dry-run to actually publish
+        run: flutter pub publish --dry-run # Remove --dry-run to actually publish
         env:
           PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
-
+      
       - name: Create GitHub Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
           body: |
             Changes in this release:
             - See [CHANGELOG.md](CHANGELOG.md) for details.
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
