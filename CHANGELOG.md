@@ -1,3 +1,7 @@
+## 0.2.4
+
+  - Merge branch 'master' of github.com:gabrielzeved/schema_builder
+  - Update release.yaml
 ## 0.2.3
 
   - Merge branch 'master' of github.com:gabrielzeved/schema_builder
