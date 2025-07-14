@@ -1,3 +1,6 @@
+## 0.2.5
+
+  - Fixes for github actions
 ## 0.2.4
 
   - Merge branch 'master' of github.com:gabrielzeved/schema_builder
