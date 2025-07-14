@@ -40,15 +40,14 @@ class SchemaVisitor extends SimpleElementVisitor<void> {
     bool isNested = AnnotationHelper.object<JsonSchema>(type.element!) != null;
 
     if (isNested) {
-      String extendClass = type.getDisplayString(withNullability: false);
+      String extendClass = type.getDisplayString();
       return ExtendedSchemaBuffer(clazz: extendClass);
     }
 
     DartObject? converter = schemaProperties?.getField("converter");
 
     if (converter != null && !converter.isNull) {
-      String converterName =
-          converter.type!.getDisplayString(withNullability: false);
+      String converterName = converter.type!.getDisplayString();
       return ConverterSchemaBuffer(converter: converterName);
     }
 
@@ -71,8 +70,7 @@ class SchemaVisitor extends SimpleElementVisitor<void> {
 
   JsonSchemaDefinition _parsePrimitive(DartType type) {
     JsonSchemaDefinition buffer = JsonSchemaDefinition();
-    String jsonType =
-        jsonTypes[type.getDisplayString(withNullability: false)] ?? "string";
+    String jsonType = jsonTypes[type.getDisplayString()] ?? "string";
     buffer.type = jsonType;
     return buffer;
   }

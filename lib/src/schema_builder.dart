@@ -36,9 +36,7 @@ class SchemaBuilder extends GeneratorForAnnotation<JsonSchema> {
 
     if (!converter.isNull) {
       ConverterSchemaBuffer converteSchemaBuffer = ConverterSchemaBuffer(
-        converter: converter.objectValue.type
-                ?.getDisplayString(withNullability: false) ??
-            '',
+        converter: converter.objectValue.type?.getDisplayString() ?? '',
       );
 
       return '''extension \$${element.name}Schema on ${element.name} {

@@ -22,36 +22,10 @@ jobs:
       - name: Validate package
         run: |
           flutter analyze
-          flutter test
+          dart test
           flutter pub publish --dry-run
       
-      - name: Get version from tag
-        id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
-      
-      - name: Update pubspec.yaml and CHANGELOG.md
-        run: |
-          dart run tool/update_version.dart patch # Replace 'patch' with the appropriate release type
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add pubspec.yaml CHANGELOG.md
-          git commit -m "Bump version to $VERSION and update CHANGELOG.md"
-          git push
-      
       - name: Publish to pub.dev
-        run: flutter pub publish --dry-run # Remove --dry-run to actually publish
+        run: flutter pub publish # Remove --dry-run to actually publish
         env:
           PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
-      
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ env.VERSION }}
-          name: Release v${{ env.VERSION }}
-          body: |
-            Changes in this release:
-            - See [CHANGELOG.md](CHANGELOG.md) for details.
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

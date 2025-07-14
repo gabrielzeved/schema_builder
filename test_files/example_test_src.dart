@@ -19,6 +19,7 @@ Map<String, dynamic> _$ShouldGenerateForSimplePrimitiveTypesSchema([
       "vInteger": {"type": "number"},
       "vDouble": {"type": "number"},
       "vBoolean": {"type": "boolean"},
+      "vOptional": {"type": "string"},
     },
   };
 }
@@ -29,12 +30,14 @@ class ShouldGenerateForSimplePrimitiveTypes {
   final int vInteger;
   final double vDouble;
   final bool vBoolean;
+  final String? vOptional;
 
   ShouldGenerateForSimplePrimitiveTypes({
     required this.vString,
     required this.vInteger,
     required this.vDouble,
     required this.vBoolean,
+    this.vOptional,
   });
 }
 

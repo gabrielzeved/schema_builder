@@ -21,7 +21,7 @@ class AnnotationHelper {
       }
 
       if (element is PropertyAccessorElement) {
-        allAnnotations.addAll(element.variable.metadata);
+        allAnnotations.addAll(element.variable2?.metadata ?? []);
       }
 
       var annotationValue = allAnnotations.firstWhere(
